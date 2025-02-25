@@ -1,7 +1,5 @@
 import sqlite3
 from book import Book
-from typing import List
-
 
 class BookDAO:
     def __init__(self, db_file):
@@ -30,7 +28,7 @@ class BookDAO:
         self.conn.execute(query)
         self.conn.commit()
 
-    def insert_book(self, book: Book):
+    def insert_book(self, book):
         """Infogar en bok i databasen och returnerar det nya bok-id:t."""
         query = """
         INSERT INTO books (title, description, author)
@@ -47,27 +45,36 @@ class BookDAO:
         rows = cur.fetchall()
         return [Book(id=row["id"], title=row["title"], description=row["description"], author=row["author"]) for row in rows]
 
-    def close(self) -> None:
+    def update_book(self, book):
+        """Uppdaterar en bok i databasen baserat på ID."""
+        if book.id is None:
+            raise ValueError("Boken måste ha ett ID för att kunna uppdateras.")
+
+        query = """
+        UPDATE books
+        SET title = ?, description = ?, author = ?
+        WHERE id = ?;
+        """
+        cur = self.conn.execute(query, (book.title, book.description, book.author, book.id))
+        self.conn.commit()
+        return cur.rowcount > 0  # Returnerar True om en rad uppdaterades
+
+    def delete_book(self, book):
+        """Tar bort en bok från databasen baserat på ID."""
+        query = "DELETE FROM books WHERE id = ?;"
+        cur = self.conn.execute(query, (book.id,))
+        self.conn.commit()
+        return cur.rowcount > 0  # Returnerar True om en rad togs bort
+
+    def find_by_title(self, title):
+        """Söker efter en bok baserat på titel och returnerar en Book-instans eller None."""
+        query = "SELECT * FROM books WHERE title = ? LIMIT 1;"
+        cur = self.conn.execute(query, (title,))
+        row = cur.fetchone()
+        if row:
+            return Book(id=row["id"], title=row["title"], description=row["description"], author=row["author"])
+        return None  # Om ingen bok hittas
+
+    def close(self):
         """Stänger databasanslutningen."""
         self.conn.close()
-
-# Exempel på hur klassen kan användas. Detta script kan testas med pytest.
-if __name__ == "__main__":
-    # Använd en in-memory-databas för enkel testning
-    dao = BookDAO(":memory:")
-
-    # Infoga en exempelbok
-    new_book = Book(id=None, title="Exempeltitel", description="En kort beskrivning", author="Författare A")
-    book_id = dao.insert_book(new_book)
-    print("Infogad bok med ID:", book_id)
-
-    # Hämta och skriv ut alla böcker
-    books = dao.get_all_books()
-    for book in books:
-        print(book)
-
-    # Töm tabellen
-    dao.clear_table()
-    print("Böcker efter tömning:", dao.get_all_books())
-
-    dao.close()
