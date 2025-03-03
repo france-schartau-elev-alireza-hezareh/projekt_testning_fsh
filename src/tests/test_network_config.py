@@ -19,7 +19,7 @@ class Test_NetworkConfigManager:
         assert self.net_connect is not None
 
     def test_update_hostname(self) -> None:
-        assert self.net_connect is None
+        assert self.net_connect is not None
         new_value = "1"
         """Uppdatera hostname-konfigurationen."""
         command = f"bash -c \"echo 'hostname: {new_value}' > /etc/config/hostname/config.txt\""
