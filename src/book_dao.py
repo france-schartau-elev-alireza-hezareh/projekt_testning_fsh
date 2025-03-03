@@ -3,14 +3,12 @@ from book import Book
 
 class BookDAO:
     def __init__(self, db_file):
-        """Initialisera anslutningen till databasen och skapa tabellen om den inte finns."""
         self.db_file = db_file
         self.conn = sqlite3.connect(self.db_file)
         self.conn.row_factory = sqlite3.Row  # Gör att vi kan hämta kolumnnamn som index
         self.create_table()
 
     def create_table(self):
-        """Skapar 'books'-tabellen om den inte redan existerar."""
         query = """
         CREATE TABLE IF NOT EXISTS books (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,13 +21,11 @@ class BookDAO:
         self.conn.commit()
 
     def clear_table(self):
-        """Tömmer 'books'-tabellen på alla rader."""
         query = "DELETE FROM books;"
         self.conn.execute(query)
         self.conn.commit()
 
     def insert_book(self, book):
-        """Infogar en bok i databasen och returnerar det nya bok-id:t."""
         query = """
         INSERT INTO books (title, description, author)
         VALUES (?, ?, ?);
@@ -39,7 +35,6 @@ class BookDAO:
         return cur.lastrowid
 
     def get_all_books(self):
-        """Returnerar en lista med alla böcker i databasen."""
         query = "SELECT * FROM books;"
         cur = self.conn.execute(query)
         rows = cur.fetchall()
@@ -67,7 +62,6 @@ class BookDAO:
         return cur.rowcount > 0  # Returnerar True om en rad togs bort
 
     def find_by_title(self, title):
-        """Söker efter en bok baserat på titel och returnerar en Book-instans eller None."""
         query = "SELECT * FROM books WHERE title = ? LIMIT 1;"
         cur = self.conn.execute(query, (title,))
         row = cur.fetchone()
@@ -76,5 +70,4 @@ class BookDAO:
         return None  # Om ingen bok hittas
 
     def close(self):
-        """Stänger databasanslutningen."""
         self.conn.close()

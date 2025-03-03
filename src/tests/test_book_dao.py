@@ -9,19 +9,16 @@ class TestBookDao:
        for i in range(1, 4):  # Skapar 3 böcker
            book = Book(f"title{i}", f"description{i}", f"author{i}")  # Skapar en bok
            self.book_dao.insert_book(book)  # Lägger till boken i tabellen
- 
+
+     
    def teardown_method(self):   
        self.book_dao.clear_table()  # rensar tabellen
        self.book_dao.close()  # Stänger anslutningen till databasen
 
+        
    def test_get_all_books(self):  # Testar get_all_books
        books = self.book_dao.get_all_books()  # gör en lista Hämtar alla böcker
-       assert len(books) == 3  # Kollar att det finns 3 böcker i listan  
-    #    for i in range(1, 4):  # Loopar igenom böckerna och kollar att de har rätt värden
-    #        assert books[i - 1].title == f"title{i}"
-    #        assert books[i - 1].description == f"description{i}"
-    #        assert books[i - 1].author == f"author{i}"
-    #        assert books[i - 1].id == i  # Kollar att böckerna har rätt ID
+       assert len(books) == 3  
  
    def test_insert_book(self):  # Testar insert_book
        book = Book("title4", "description4", "author4")  # Skapar en bok
