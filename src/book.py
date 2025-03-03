@@ -7,7 +7,5 @@ class Book:
         self.description = description
         self.author = author
 
-        #Sauda kommentar
-
     def __str__(self):
         return f"Book(id={self.id}, title='{self.title}', description='{self.description}', author='{self.author}')"
