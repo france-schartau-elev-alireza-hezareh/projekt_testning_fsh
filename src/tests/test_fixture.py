@@ -11,7 +11,7 @@ def book_dao():
         book_dao.insert_book(book)  
     return book_dao  
 
-def test_get_all_books(book_dao):  
+def test_get_all_books(dao):  
     books = book_dao.get_all_books()  
     assert len(books) == 3  
 
