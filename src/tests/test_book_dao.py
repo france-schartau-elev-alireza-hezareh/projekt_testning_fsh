@@ -45,4 +45,13 @@ class TestBookDao:
        self.book_dao.delete_book(book)  # Tar bort boken
        deleted_book = self.book_dao.find_by_title("title1")  # Försöker hämta boken igen
        assert deleted_book == None  # Kollar att boken är borttagen
- 
+
+@pytest.fixture # Skapar en fixture
+def book_dao(): # Skapar en funktion som returnerar book_dao
+    book_dao = BookDAO(":memory:") # Använder en temporär databas i minnet
+    for i in range(1, 4): # Skapar tre böcker
+        book = Book(f"title{i}", f"description{i}", f"author{i}")  # Skapar en bok
+        book_dao.insert_book(book) # Lägger till boken i databasen
+    yield book_dao # Returnerar book_dao
+    book_dao.clear_table()  # Rensar databasen
+    book_dao.close() # Stänger anslutningen till databasen
