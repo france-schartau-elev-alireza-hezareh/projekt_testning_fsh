@@ -9,7 +9,7 @@ class Test_NetworkConfigManager: # Testklass
         self.ncm.update_interface_state("down") 
         self.ncm.update_response_prefix("Standard Response") 
 
-    def teardown_method(self):
+    def teardown_method(self): # Metod som körs efter varje test
         self.ncm.disconnect()
         print("Disconnected from device.") 
 
