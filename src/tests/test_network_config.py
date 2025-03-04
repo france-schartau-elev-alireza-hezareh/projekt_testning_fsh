@@ -1,43 +1,52 @@
 from network_config_manager import NetworkConfigManager
 from netmiko import ConnectHandler
 
-class Test_NetworkConfigManager:
-    def setup_method(self):
-        self.device = {
-            "device_type": "linux",
-            "ip": "127.0.0.1",
-            "username": "admin",
-            "password": "password",
-            "port": 2222,
-        }
-        self.net_connect = None 
+class Test_NetworkConfigManager: # Testklass
+    def setup_method(self): # Metod som körs innan varje test
+        self.ncm = NetworkConfigManager() 
+        self.ncm.connect() 
+        self.ncm.update_hostname("1") 
+        self.ncm.update_interface_state("down") 
+        self.ncm.update_response_prefix("Standard Response") 
 
-    def test_connect(self) -> None:
-        """Etablera SSH-anslutning."""
-        self.net_connect = ConnectHandler(**self.device)
-        print("Connected to device.")
-        assert self.net_connect is not None
+    def teardown_method(self): # Metod som körs efter varje test
+        self.ncm.disconnect()
+        print("Disconnected from device.") 
 
-    def test_update_hostname(self) -> None:
-        assert self.net_connect is not None
-        new_value = "1"
-        """Uppdatera hostname-konfigurationen."""
-        command = f"bash -c \"echo 'hostname: {new_value}' > /etc/config/hostname/config.txt\""
-        updated_hostname = self.net_connect.send_command(command)
-        print(f"Hostname updated to: {new_value}")
-        assert updated_hostname.strip() == "1"
+
+    def test_show_hostname(self): # Testmetod
+        """Testa att uppdatera hostname.""" 
+        self.ncm.update_hostname("1")
+        assert self.ncm.show_hostname() == "hostname: 1" 
+        print("Hostname updated to 1.")
+
+
+    def test_show_interface_state(self): # Testmetod
+        """Testa att uppdatera interface state.""" 
+        self.ncm.update_interface_state("down") 
+        assert self.ncm.show_interface_state() == "interface_state: down" 
+        print("Interface state updated to down.") 
     
+    def test_show_response_prefix(self): # Testmetod
+        """Testa att uppdatera response prefix."""
+        self.ncm.update_response_prefix("Standard Response") 
+        assert self.ncm.show_response_prefix() == "response_prefix: Standard Response" 
+        print("Response prefix updated to Standard Response.")
 
-    # def update_interface_state(self, new_value: str) -> None:
-    #     """Uppdatera interface state-konfigurationen."""
-    #     if new_value not in ["up", "down"]:
-    #         raise ValueError("Invalid value! Interface state must be 'up' or 'down'.")
-    #     command = f"bash -c \"echo 'interface_state: {new_value}' > /etc/config/interface/config.txt\""
-    #     self.net_connect.send_command(command)
-    #     print(f"Interface state updated to: {new_value}")
 
-    # def update_response_prefix(self, new_value: str) -> None:
-    #     """Uppdatera response prefix-konfigurationen."""
-    #     command = f"bash -c \"echo 'response_prefix: {new_value}' > /etc/config/response/config.txt\""
-    #     self.net_connect.send_command(command)
-    #     print(f"Response prefix updated to: {new_value}")
+    def test_update_hostname(self): # Testmetod
+        """Testa att uppdatera hostname.""" 
+        self.ncm.update_hostname("2") 
+        assert self.ncm.show_hostname() == "hostname: 2" 
+
+    def test_update_interface_state(self): # Testmetod
+        """Testa att uppdatera interface state.""" 
+        self.ncm.update_interface_state("up") 
+        assert self.ncm.show_interface_state() == "interface_state: up" 
+        
+    
+    def test_update_response_prefix(self): 
+        """Testa att uppdatera response prefix.""" 
+        self.ncm.update_response_prefix("New Response") 
+        assert self.ncm.show_response_prefix() == "response_prefix: New Response"
+       

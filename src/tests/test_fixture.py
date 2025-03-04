@@ -1,3 +1,5 @@
+#VG delen: Använd istället en fixture för att utföra samma sak som setup -metoden gör, dvs förbereder inför varje test
+
 import pytest
 from book_dao import BookDAO  
 from book import Book  
