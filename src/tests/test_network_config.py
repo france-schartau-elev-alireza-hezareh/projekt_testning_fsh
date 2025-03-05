@@ -13,7 +13,7 @@ class Test_NetworkConfigManager: # Testklass
         self.ncm.disconnect()
         print("Disconnected from device.") 
 
-#. 1. Verifiera standardvärden efter setup:
+# 1. Verifiera standardvärden efter setup:
     def test_show_hostname(self): # Testmetod
         """Testa att uppdatera hostname.""" 
         self.ncm.update_hostname("1")

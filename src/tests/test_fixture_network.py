@@ -31,8 +31,8 @@ def test_show_response_prefix(ncm): # Testmetod
     print("Response prefix updated to Standard Response.") 
     
 
-#Skriv en till testmetod som försöker skicka in ett annat värde än up eller down som värde för interface_state och verifiera att rätt exception kastas. 
-#Testet ska alltså visa grönt när exceptionet kastas, det är det som förväntas.
+# Skriv en till testmetod som försöker skicka in ett annat värde än up eller down som värde för interface_state och verifiera att rätt exception kastas. 
+# Testet ska alltså visa grönt när exceptionet kastas, det är det som förväntas.
 def test_update_interface_state_exception(ncm): # Testmetod
     with pytest.raises(ValueError): 
         ncm.update_interface_state("new") 
