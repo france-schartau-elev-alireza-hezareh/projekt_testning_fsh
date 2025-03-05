@@ -1,3 +1,5 @@
+#Habbenurs del: 
+
 from network_config_manager import NetworkConfigManager
 from netmiko import ConnectHandler
 
@@ -12,7 +14,8 @@ class Test_NetworkConfigManager: # Testklass
     def teardown_method(self): # Metod som körs efter varje test
         self.ncm.disconnect()
         print("Disconnected from device.") 
-
+        
+#Alis del:
 #. 1. Verifiera standardvärden efter setup:
     def test_show_hostname(self): # Testmetod
         """Testa att uppdatera hostname.""" 

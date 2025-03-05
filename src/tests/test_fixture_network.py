@@ -1,4 +1,5 @@
 #VG delen: 
+#Saudas del:
 #Istället för setup_metod använd fixture , på samma sätt som i första uppgiften med databas
 
 from network_config_manager import NetworkConfigManager
