@@ -17,7 +17,7 @@ class TestBookDao:
        self.book_dao.clear_table()
        self.book_dao.close()
        
-#Habbenurs del:        
+#Alis del:        
    def test_get_all_books(self):
        books = self.book_dao.get_all_books()
        assert len(books) == 3  

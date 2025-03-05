@@ -16,7 +16,6 @@ class Test_NetworkConfigManager: # Testklass
         print("Disconnected from device.") 
 
         
-#Alis del:
 # 1. Verifiera standardvärden efter setup:
     def test_show_hostname(self): # Testmetod
         """Testa att uppdatera hostname.""" 
