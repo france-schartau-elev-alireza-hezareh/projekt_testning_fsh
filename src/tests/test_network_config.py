@@ -14,14 +14,10 @@ class Test_NetworkConfigManager: # Testklass
     def teardown_method(self): # Metod som körs efter varje test
         self.ncm.disconnect()
         print("Disconnected from device.") 
-<<<<<<< HEAD
+
         
 #Alis del:
-#. 1. Verifiera standardvärden efter setup:
-=======
-
 # 1. Verifiera standardvärden efter setup:
->>>>>>> 3362f68fb6dd1328e24d5f9385d60a36331699fd
     def test_show_hostname(self): # Testmetod
         """Testa att uppdatera hostname.""" 
         self.ncm.update_hostname("1")
