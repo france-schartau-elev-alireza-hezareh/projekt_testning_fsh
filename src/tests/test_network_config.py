@@ -5,16 +5,14 @@ from network_config_manager import NetworkConfigManager
 class Test_NetworkConfigManager:
     def setup_method(self):
 
-        self.ncm = NetworkConfigManager()
-
-        self.ncm.connect()
-        """Skapar en instans av NetworkConfigManager och ansluter till enheten."""
-        self.ncm.update_hostname("1")
+        self.ncm = NetworkConfigManager()  
+        self.ncm.connect()                 
+        self.ncm.update_hostname("1")       
         self.ncm.update_interface_state("down")
         self.ncm.update_response_prefix("Standard Response")
-        """Skapar en instans av NetworkConfigManager och uppdaterar konfigurationerna."""
+       
 
-    def teardown_method(self):
+    def teardown_method(self): 
         self.ncm.disconnect()
         """Stäng anslutningen."""
 
