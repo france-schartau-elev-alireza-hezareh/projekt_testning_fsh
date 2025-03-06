@@ -3,7 +3,6 @@
 #Istället för setup_metod använd fixture , på samma sätt som i första uppgiften med databas
 
 from network_config_manager import NetworkConfigManager
-from netmiko import ConnectHandler
 import pytest
 
 @pytest.fixture  # Skapar en fixture
@@ -26,7 +25,7 @@ def test_show_interface_state(ncm):
     print("Interface state updated to down.") 
 
 
-def test_show_response_prefix(ncm): # Testmetod
+def test_show_response_prefix(ncm):
     ncm.update_response_prefix("Standard Response") 
     assert ncm.show_response_prefix() == "response_prefix: Standard Response" 
     print("Response prefix updated to Standard Response.") 
