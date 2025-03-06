@@ -1,3 +1,5 @@
+#Sauda del:
+
 from book_dao import BookDAO
 from book import Book
 import pytest
@@ -14,8 +16,8 @@ class TestBookDao:
    def teardown_method(self):   
        self.book_dao.clear_table()
        self.book_dao.close()
-
-        
+       
+#Alis del:        
    def test_get_all_books(self):
        books = self.book_dao.get_all_books()
        assert len(books) == 3  
