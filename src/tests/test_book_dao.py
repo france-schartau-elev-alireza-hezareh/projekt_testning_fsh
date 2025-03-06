@@ -4,7 +4,7 @@ from book_dao import BookDAO
 from book import Book
 import pytest
  
-class TestBookDao:
+class TestBookDao:    
    def setup_method(self):
        self.book_dao = BookDAO(":memory:")
        self.book_dao.create_table()

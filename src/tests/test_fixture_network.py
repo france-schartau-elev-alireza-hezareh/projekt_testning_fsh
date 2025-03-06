@@ -30,7 +30,8 @@ def test_show_response_prefix(ncm):
     assert ncm.show_response_prefix() == "response_prefix: Standard Response" 
     print("Response prefix updated to Standard Response.") 
 
-def test_update_hostname(ncm):
+
+def test_update_hostname(ncm): 
     ncm.update_hostname("2")
     updated_hostname = ncm.show_hostname()
     assert updated_hostname == "hostname: 2"

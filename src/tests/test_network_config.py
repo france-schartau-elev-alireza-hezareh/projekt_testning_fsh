@@ -3,15 +3,15 @@ from network_config_manager import NetworkConfigManager
 
 
 class Test_NetworkConfigManager:
-    def setup_method(self):
+    def setup_method(self): 
 
-        self.ncm = NetworkConfigManager()  
+        self.ncm = NetworkConfigManager()   
         self.ncm.connect()                 
         self.ncm.update_hostname("1")       
         self.ncm.update_interface_state("down")
         self.ncm.update_response_prefix("Standard Response")
        
-
+  
     def teardown_method(self): 
         self.ncm.disconnect()
         """Stäng anslutningen."""
