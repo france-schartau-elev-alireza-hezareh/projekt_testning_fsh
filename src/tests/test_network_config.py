@@ -21,16 +21,17 @@ class Test_NetworkConfigManager:
         self.ncm.show_hostname()
         assert self.ncm.show_hostname() == "hostname: 1"
         """Testa att uppdatera hostname-konfiguration"""
+        
+    def test_show_interface_state(self):
+        self.ncm.show_interface_state()
+        assert self.ncm.show_interface_state() == "interface_state: down"
+        """Testa att uppdatera interface state-konfigurationen."""
  
     def test_show_response_prefix(self):
         self.ncm.show_response_prefix()
         assert self.ncm.show_response_prefix() == "response_prefix: Standard Response"
         """Testa att uppdatera response prefix-konfigurationen."""     
 
-    def test_show_interface_state(self):
-        self.ncm.show_interface_state()
-        assert self.ncm.show_interface_state() == "interface_state: down"
-        """Testa att uppdatera interface state-konfigurationen."""
 
 #. 2. Testa uppdatering av konfiguration:
     def test_update_hostname(self):
